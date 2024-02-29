@@ -1,14 +1,18 @@
 <template>
-    <div>
-      <h2 class="text-2xl font-semibold mb-4">Detalles de los Perros</h2>
-      <div v-for="dog in dogs" :key="dog.id" class="mb-6">
-        <div class="font-semibold mb-2">{{ dog.breed }}</div>
-        <div class="text-gray-600 mb-2">Tamaño: {{ dog.size }}</div>
-        <div class="text-gray-600 mb-2">Color: {{ dog.color }}</div>
-        <img :src="dog.image" alt="Perro" class="w-48 h-48 object-cover rounded">
+    <div class="container mx-auto py-8">
+      <h2 class="text-3xl font-semibold mb-8 text-center text-gray-800">Detalles de los Perros</h2>
+      <div v-for="dog in dogs" :key="dog.id" class="flex items-center mb-8">
+        <div class="flex-shrink-0 mr-4">
+          <img :src="`http://127.0.0.1:8000/storage/${dog.image}`" alt="Perro" class="w-24 h-24 object-cover rounded">
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold">{{ dog.breed }}</h3>
+          <p class="text-gray-700">Tamaño: {{ dog.size }}</p>
+          <p class="text-gray-700">Color: {{ dog.color }}</p>
+        </div>
       </div>
     </div>
-  </template>
+</template>
   
   <script setup>
   import { ref, onMounted } from 'vue';
@@ -18,11 +22,12 @@
   onMounted(async () => {
     try {
       const response = await fetch('http://127.0.0.1:8000/api/dogs');
-      if (response.ok) {
-        dogs.value = await response.json();
-      } else {
-        console.error('Error al obtener los perros:', response.statusText);
+      
+      if (!response.ok) {
+        throw new Error('No se pudieron obtener los perros' + response.statusText);
       }
+    
+      dogs.value = await response.json();
     } catch (error) {
       console.error('Error al obtener los perros:', error);
     }

@@ -21,8 +21,8 @@
                 Guardar Detalles
             </button>
         </form>
-        <router-link to="/details" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-md text-lg block mx-auto">Ver todos los perros</router-link>
     </div>
+    <router-link to="/details" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-9 rounded-md text-lg block mx-auto w-60">Ver todos los perros</router-link>
   </template>
   
   <script setup>
@@ -35,12 +35,22 @@
     image: null
   });
   
-  function handleFileUpload(event) {
+  const handleFileUpload = (event) => {
     dogDetails.value.image = event.target.files[0];
   }
   
   async function submitForm() {
     try {
+
+        const isRepeated = dogs.value.some(dog => dog.breed === dogDetails.value.breed &&
+        dog.size === dogDetails.value.size &&
+        dog.color === dogDetails.value.color);
+
+        if (isRepeated){
+            alert('El perro ya existe');
+            return;
+        }
+
       const formData = new FormData();
       formData.append('breed', dogDetails.value.breed);
       formData.append('size', dogDetails.value.size);
@@ -54,7 +64,12 @@
   
       if (response.ok) {
         const data = await response.json();
-        formReset();
+        
+        dogDetails.value.breed = '';
+        dogDetails.value.size = '';
+        dogDetails.value.color = '';
+        dogDetails.value.image = null;
+
         console.log('Respuesta del backend:', data);
       } else {
         console.error('Error en la petición al backend:', response.statusText);

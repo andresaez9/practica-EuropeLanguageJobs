@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Dog;
 
 class DogController extends Controller
@@ -11,6 +12,7 @@ class DogController extends Controller
     {
         try {
             $dogs = Dog::all();
+            
             return response()->json($dogs);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
@@ -30,7 +32,7 @@ class DogController extends Controller
             $imgPath = $request->file('image')->store('public/images');
 
             $dog = new Dog([
-                'image' => $imgPath,
+                'image' => str_replace('public/', '', $imgPath), // remove 'public/' from the path
                 'breed' => $request->get('breed'),
                 'size' => $request->get('size'),
                 'color' => $request->get('color'),
