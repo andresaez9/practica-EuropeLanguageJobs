@@ -29,6 +29,16 @@ class DogController extends Controller
                 'color' => 'required',
             ]);
 
+            // validate duplicate
+            $dog = Dog::where('breed', $request->get('breed'))
+                ->where('size', $request->get('size'))
+                ->where('color', $request->get('color'))
+                ->first();
+                
+            if ($dog) {
+                return response()->json(['message' => 'Dog already exists!'], 400);
+            }
+
             $imgPath = $request->file('image')->store('public/images');
 
             $dog = new Dog([

@@ -21,6 +21,7 @@
                 Guardar Detalles
             </button>
         </form>
+        <div v-if="errorMessage" class="text-red-600 text-center mt-4">{{ errorMessage }}</div>
     </div>
     <router-link to="/details" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-9 rounded-md text-lg block mx-auto w-60">Ver todos los perros</router-link>
   </template>
@@ -34,6 +35,8 @@
     color: '',
     image: null
   });
+
+  const errorMessage = ref('');
   
   const handleFileUpload = (event) => {
     dogDetails.value.image = event.target.files[0];
@@ -41,16 +44,6 @@
   
   async function submitForm() {
     try {
-
-        const isRepeated = dogs.value.some(dog => dog.breed === dogDetails.value.breed &&
-        dog.size === dogDetails.value.size &&
-        dog.color === dogDetails.value.color);
-
-        if (isRepeated){
-            alert('El perro ya existe');
-            return;
-        }
-
       const formData = new FormData();
       formData.append('breed', dogDetails.value.breed);
       formData.append('size', dogDetails.value.size);
@@ -61,6 +54,11 @@
         method: 'POST',
         body: formData
       });
+
+      if (!response.ok) {
+        errorMessage.value = 'Error al subir la foto o detalles del perro, hay valores repetidos';
+        return;
+      }
   
       if (response.ok) {
         const data = await response.json();
