@@ -1,6 +1,6 @@
 
 const routes = [
-  {
+  /*{
     path: '/',
     component: () => import('layouts/MainLayout.vue'),
     children: [
@@ -13,6 +13,14 @@ const routes = [
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue')
+  }*/
+  {
+    path: '/',
+    component: () => import('pages/DogForm.vue'),
+  },
+  {
+    path: '/details',
+    component: () => import('pages/DogDetails.vue'),
   }
 ]
 
