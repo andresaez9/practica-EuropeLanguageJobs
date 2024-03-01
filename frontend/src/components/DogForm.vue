@@ -1,7 +1,16 @@
 <script setup>
+  import { ref, watch } from 'vue';
+  import { useRoute } from 'vue-router';
   import { useDogStore } from 'stores/dogStore';
 
   const dogStore = useDogStore();
+  const route = useRoute();
+
+  const isEqualRoute = ref(false);
+
+  watch(() => route.path, (newPath) => {
+    isEqualRoute.value = newPath !== route.path;
+  });
 </script>
 
 <template>
@@ -27,9 +36,10 @@
         Guardar Detalles
       </button>
     </form>
-    <div v-if="dogStore.errorMessage" class="text-red-600 text-center mt-4">{{ dogStore.errorMessage }}</div>
-    <div v-if="dogStore.checkMessage" class="text-green-600 text-center mt-4">{{ dogStore.checkMessage }}</div>
+    <div v-if="dogStore.errorMessage && isEqualRoute.value" class="text-red-600 text-center mt-4">{{ dogStore.errorMessage }}</div>
+    <div v-if="dogStore.checkMessage && isEqualRoute.value" class="text-green-600 text-center mt-4">{{ dogStore.checkMessage }}</div>
+    <router-link to="/all" v-if="dogStore.checkMessage && isEqualRoute.value" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-md text-lg block mx-auto w-60 mt-8">Ver Todos los Perros</router-link>
   </div>
-  <router-link to="/details" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-9 rounded-md text-lg block mx-auto w-60">Ver todos los perros</router-link>
+  <router-link to="/" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-14 rounded-md text-lg block mx-auto w-60">Volver al inicio</router-link>
 </template>
   

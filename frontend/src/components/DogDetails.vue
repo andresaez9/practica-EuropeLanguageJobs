@@ -1,6 +1,7 @@
 <template>
     <div class="container mx-auto py-8">
       <h2 class="text-3xl font-semibold mb-8 text-center text-gray-800">Detalles de los Perros</h2>
+      <router-link to="/" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-14 rounded-md text-lg block w-60 mb-6">Volver al inicio</router-link>
       <div v-for="dog in dogs" :key="dog.id" class="flex items-center mb-8">
         <div class="flex-shrink-0 mr-4">
           <img :src="`http://127.0.0.1:8000/storage/${dog.image}`" alt="Perro" class="w-24 h-24 object-cover rounded">
@@ -14,7 +15,7 @@
     </div>
 </template>
   
-  <script setup>
+<script setup>
   import { ref, onMounted } from 'vue';
   
   const dogs = ref([]);
@@ -29,8 +30,8 @@
     
       dogs.value = await response.json();
     } catch (error) {
-      console.error('Error al obtener los perros:', error);
+      throw new Error('Error al obtener los perros:', error);
     }
   });
-  </script>
+</script>
   

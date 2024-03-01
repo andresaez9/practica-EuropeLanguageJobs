@@ -16,11 +16,20 @@ const routes = [
   }*/
   {
     path: '/',
+    component: () => import('pages/IndexPage.vue'),
+  },
+  {
+    path: '/add',
     component: () => import('pages/DogForm.vue'),
   },
   {
-    path: '/details',
+    path: '/all',
     component: () => import('pages/DogDetails.vue'),
+  },
+  {
+    path: '/:pathMatch(.*)*', // 404
+    name: 'notFound',
+    component: () => import('../pages/NotFoundView.vue')
   }
 ]
 
