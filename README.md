@@ -31,3 +31,8 @@ Asegúrate de tener Node.js y npm instalados en tu sistema. Puedes descargarlos 
    ```
 2. Iniciar Cliente
    ```npm run dev```
+
+#### IMPORTANTE!!
+Tanto backend como frontend deben estar levantados/corriendo para que el proyecto funcione.
+
+### Funcionalidades y Páginas
