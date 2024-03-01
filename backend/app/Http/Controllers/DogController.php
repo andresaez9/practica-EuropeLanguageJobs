@@ -58,4 +58,22 @@ class DogController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
+    public function delete($id)
+    {
+        try {
+            $dog = Dog::find($id);
+
+            if (!$dog) {
+                return response()->json(['message' => 'Dog not found!'], 404);
+            }
+
+            Storage::delete('public/' . $dog->image);
+            $dog->delete();
+
+            return response()->json(['message' => 'Dog deleted!']);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
 }

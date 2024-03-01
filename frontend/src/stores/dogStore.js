@@ -62,6 +62,21 @@ export const useDogStore = defineStore('dogStore', {
           } catch (error) {
             console.error('Error en la petición al backend:', error);
           }
+        },
+
+        async deleteDog (dogId) {
+          try {
+            // Realiza la solicitud de eliminación al servidor
+            const response = await fetch(`http://127.0.0.1:8000/api/dogs/${dogId}`, {
+              method: 'DELETE'
+            });
+      
+            if (!response.ok) {
+              throw new Error('No se pudo eliminar el perro' + response.statusText);
+            }
+          } catch (error) {
+            throw new Error('Error al eliminar el perro:', error);
+          }
         }
     }
 });

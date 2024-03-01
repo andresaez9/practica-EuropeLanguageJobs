@@ -21,3 +21,4 @@ use App\Http\Controllers\DogController;
 
 Route::get('/dogs', [DogController::class, 'index']);
 Route::post('/dogs', [DogController::class, 'store']);
+Route::delete('/dogs/{id}', [DogController::class, 'delete']);
