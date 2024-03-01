@@ -4,8 +4,8 @@
 
 ### Servidor
 #### Requisitos Previos
-PHP instalado en tu sistema. Puedes descargarlo desde php.net.
-Composer, el administrador de dependencias de PHP. Puedes descargarlo desde getcomposer.org.
+PHP instalado en tu sistema. Puedes descargarlo desde [php.net](https://www.php.net/).
+Composer, el administrador de dependencias de PHP. Puedes descargarlo desde [getcomposer.org](https://getcomposer.org/).
 1. Clonar el Repositorio
    ```git clone <url_del_repositorio>```
 
@@ -23,7 +23,7 @@ Composer, el administrador de dependencias de PHP. Puedes descargarlo desde getc
 
 ### Cliente
 #### Requisitos Previos
-Asegúrate de tener Node.js y npm instalados en tu sistema. Puedes descargarlos desde nodejs.org.
+Asegúrate de tener Node.js y npm instalados en tu sistema. Puedes descargarlos desde [nodejs.org](https://nodejs.org/en).
 1. Desde la raiz del repositorio clonado anteriormente usamos estos comandos. Con npm install instalamos las dependencias del proyecto.
    ```
    cd frontend
