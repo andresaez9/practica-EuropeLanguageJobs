@@ -66,7 +66,6 @@ export const useDogStore = defineStore('dogStore', {
 
         async deleteDog (dogId) {
           try {
-            // Realiza la solicitud de eliminación al servidor
             const response = await fetch(`http://127.0.0.1:8000/api/dogs/${dogId}`, {
               method: 'DELETE'
             });

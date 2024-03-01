@@ -29,7 +29,6 @@
     </form>
     <div v-if="dogStore.errorMessage" class="text-red-600 text-center mt-4">{{ dogStore.errorMessage }}</div>
     <div v-if="dogStore.checkMessage" class="text-green-600 text-center mt-4">{{ dogStore.checkMessage }}</div>
-    <router-link to="/all" v-if="dogStore.checkMessage" class="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-8 rounded-md text-lg block mx-auto w-60 mt-8">Ver Todos los Perros</router-link>
   </div>
   <router-link to="/" class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-14 rounded-md text-lg block mx-auto w-60">Volver al inicio</router-link>
 </template>
