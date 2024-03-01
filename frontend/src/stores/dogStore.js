@@ -10,7 +10,7 @@ export const useDogStore = defineStore('dogStore', {
         },
 
         errorMessage: "",
-        checkMessage: "",
+        checkMessage: ""
     }),
 
     getters: {
