@@ -24,9 +24,9 @@ class DogController extends Controller
         try {
             $request->validate([
                 'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'breed' => 'required',
-                'size' => 'required',
-                'color' => 'required',
+                'breed' => 'required|alpha_only',
+                'size' => 'required|alpha_only',
+                'color' => 'required|alpha_only',
             ]);
 
             $dog = Dog::where('breed', $request->get('breed'))

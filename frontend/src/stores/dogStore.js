@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 const url = 'http://127.0.0.1:8000/api/dogs';
+const onlyLetters = /^[a-zA-Z]+$/;
 
 export const useDogStore = defineStore('dogStore', {
     state: () => ({
@@ -32,6 +33,16 @@ export const useDogStore = defineStore('dogStore', {
 
         async submitForm() {
           try {
+
+            if (!this.dogsDetails.breed.match(onlyLetters) ||
+                !this.dogsDetails.size.match(onlyLetters) ||
+                !this.dogsDetails.color.match(onlyLetters)
+              ) {
+              this.errorMessage = 'Los valores solo pueden contener letras';
+              this.checkMessage = '';
+              return;
+            }
+
             const formData = new FormData();
             formData.append('breed', this.dogsDetails.breed);
             formData.append('size', this.dogsDetails.size);
