@@ -65,7 +65,7 @@ Necesario tener NodeJS instalado, web creada con Vite.js.
 
 3. Accedemos a la URL que nos proporciona Vite.js
    Ejemplo: http://127.0.0.1:5173/
-
+   
 ![](./docs/videos/web-layout.mp4)
 
 ### Otras tecnologías
