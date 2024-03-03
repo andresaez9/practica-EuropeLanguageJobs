@@ -46,7 +46,7 @@ Tanto backend como frontend deben estar levantados/corriendo para que el proyect
 ![](./docs/images/error-dog.png)
 ![](./docs/images/success-dog.png)
 
-   -DogDetailsPage: En esta página podremos visualizar a todos los perros dentro del sistema, podemos borrar el perro. Está paginado para que se muestre de 4 en 4
+   - DogDetailsPage: En esta página podremos visualizar a todos los perros dentro del sistema, podemos borrar el perro. Está paginado para que se muestre de 4 en 4
 ![](./docs/images/all-dogs.png)
 
 ### Otras tecnologías
@@ -66,7 +66,7 @@ Necesario tener NodeJS instalado, web creada con Vite.js.
 3. Accedemos a la URL que nos proporciona Vite.js
    Ejemplo: http://127.0.0.1:5173/
 
-![!](./docs/videos/web-layout.mp4)
+![](./docs/videos/web-layout.mp4)
 
 ### Otras tecnologías
    - Bootstrap
