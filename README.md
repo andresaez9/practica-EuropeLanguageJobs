@@ -36,3 +36,25 @@ Asegúrate de tener Node.js y npm instalados en tu sistema. Puedes descargarlos 
 Tanto backend como frontend deben estar levantados/corriendo para que el proyecto funcione.
 
 ### Funcionalidades y Páginas
+
+
+### Otras tecnologías
+   - TailwindCSS
+
+## Web Layout
+Necesario tener NodeJS instalado, web creada con Vite.js.
+
+1. Desde la raiz del repositorio clonado usamos los siguientes comandos.
+   ```
+   cd web-layout
+   npm install
+   ```
+2. Iniciar Cliente
+   ```npm run dev```
+
+3. Accedemos a la URL que nos proporciona Vite.js
+   Ejemplo: http://127.0.0.1:5173/
+
+### Otras tecnologías
+   - Bootstrap
+   - Bootstrap Icons
