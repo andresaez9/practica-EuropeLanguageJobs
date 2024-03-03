@@ -4,20 +4,20 @@
   import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
   const dogStore = useDogStore();
-  const route = useRoute();
+  //const route = useRoute();
 
-  onMounted(() => {
+  /*onMounted(() => {
     if (route.params.id) {
       dogStore.getDogDetails(route.params.id);
     }
-  });
+  });*/
 
   const handleSubmitForm = () => {
-    if (route.params.id) {
+    /*if (route.params.id) {
       dogStore.updateDog(route.params.id);
-    } else {
+    } else {*/
       dogStore.submitForm();
-    }
+    //}
   }
 
   onBeforeRouteLeave((to, from, next) => {

@@ -75,7 +75,7 @@ export const useDogStore = defineStore('dogStore', {
           }
         },
 
-        async updateDog(dogId) {
+        /*async updateDog(dogId) {
           try {
               const formData = new FormData();
               formData.append('breed', this.dogsDetails.breed);
@@ -123,7 +123,7 @@ export const useDogStore = defineStore('dogStore', {
           } catch (error) {
             throw new Error('Error al obtener los detalles del perro:', error);
           }
-        },
+        },*/
     
         clearMessages() {
           this.errorMessage = '';

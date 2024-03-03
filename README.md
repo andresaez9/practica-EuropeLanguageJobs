@@ -1,5 +1,3 @@
-# practica-EuropeLanguageJobs
-
 ## Instalación del Proyecto
 
 ### Servidor
@@ -32,11 +30,24 @@ Asegúrate de tener Node.js y npm instalados en tu sistema. Puedes descargarlos 
 2. Iniciar Cliente
    ```npm run dev```
 
+3. Accedemos a la url que nos proporciona el lado del cliente.
+
+   Ejemplo: [http://localhost:9000/#/]()
+
 #### IMPORTANTE!!
 Tanto backend como frontend deben estar levantados/corriendo para que el proyecto funcione.
 
 ### Funcionalidades y Páginas
+   - IndexPage: Esta es la página principal al iniciar nuestro proyecto. El usuario podrá agregar un nuevo perro o ver todos los perros disponibles.
+![](./docs/images/index.png)
 
+   - DogFormPage: Esta página nos permite agregar un perro nuevo a nuestro sistema. Elegimos la imagen, rellenamos los demás campos y listo. Resalto que si el perro ya está dentro del sistema o uno de los campos no están rellenados nos mostrará un mensaje de error y no se ingresará el perro. Si el perro es ingresado mostrará un mensaje de éxito. También tenemos un botón para volver al inicio.
+![](./docs/images/add-dog.png)
+![](./docs/images/error-dog.png)
+![](./docs/images/success-dog.png)
+
+   -DogDetailsPage: En esta página podremos visualizar a todos los perros dentro del sistema, podemos borrar el perro. Está paginado para que se muestre de 4 en 4
+![](./docs/images/all-dogs.png)
 
 ### Otras tecnologías
    - TailwindCSS
@@ -54,6 +65,8 @@ Necesario tener NodeJS instalado, web creada con Vite.js.
 
 3. Accedemos a la URL que nos proporciona Vite.js
    Ejemplo: http://127.0.0.1:5173/
+
+![!](./docs/videos/web-layout.mp4)
 
 ### Otras tecnologías
    - Bootstrap

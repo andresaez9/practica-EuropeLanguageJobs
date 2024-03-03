@@ -29,7 +29,6 @@ class DogController extends Controller
                 'color' => 'required',
             ]);
 
-            // validate duplicate
             $dog = Dog::where('breed', $request->get('breed'))
                 ->where('size', $request->get('size'))
                 ->where('color', $request->get('color'))
@@ -77,7 +76,7 @@ class DogController extends Controller
         }
     }
 
-    public function update(Request $request, $id)
+    /*public function update(Request $request, $id)
     {
         try {
             $request->validate([
@@ -127,5 +126,5 @@ class DogController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
-    }
+    }*/
 }
