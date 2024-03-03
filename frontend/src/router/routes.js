@@ -27,6 +27,10 @@ const routes = [
     component: () => import('pages/DogDetailsPage.vue'),
   },
   {
+    path: '/edit/:id',
+    component: () => import('pages/DogFormPage.vue'),
+  },
+  {
     path: '/:pathMatch(.*)*', // 404
     name: 'notFound',
     component: () => import('../pages/ErrorNotFoundPage.vue')

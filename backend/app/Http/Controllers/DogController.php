@@ -76,4 +76,56 @@ class DogController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
+    public function update(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'breed' => 'required',
+                'size' => 'required',
+                'color' => 'required',
+            ]);
+
+            $dog = Dog::findOrFail($id);
+
+            if (!$dog) {
+                return response()->json(['message' => 'Dog not found!'], 404);
+            }
+
+            $dog->breed = $request->input('breed');
+            $dog->size = $request->input('size');
+            $dog->color = $request->input('color');
+
+            if ($request->hasFile('image')) {
+                Storage::delete('public/' . $dog->image);
+                $imgPath = $request->file('image')->store('public/images');
+                $dog->image = str_replace('public/', '', $imgPath); // remove 'public/' from the path
+            }
+
+            $dog->save();
+
+            return response()->json([
+                'message' => 'Dog updated!',
+                'dog' => $dog
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $dog = Dog::find($id);
+
+            if (!$dog) {
+                return response()->json(['message' => 'Dog not found!'], 404);
+            }
+
+            return response()->json($dog);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
 }
