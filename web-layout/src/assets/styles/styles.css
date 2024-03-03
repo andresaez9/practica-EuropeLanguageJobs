@@ -26,7 +26,8 @@ header {
 header nav a {
     color: white;
     text-decoration: none;
-    padding: 10px;
+    padding: 10px 1em;
+    font-size: smaller;
 }
 
 header nav a:hover {
@@ -112,6 +113,14 @@ main {
     font-size: 0.6em;
     margin-left: 0.8em;
     font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+.details article span span {
+    font-size: medium;
+    font-weight: normal;
 }
 
 .container-carousel {
@@ -215,7 +224,7 @@ main {
 
 .form-container {
     margin-top: 4em;
-    background-color: rgb(233, 233, 233);
+    background-color: rgb(244, 244, 244);
     width: 60em;
 }
 
@@ -228,7 +237,7 @@ main {
 .form-container form i {
     font-size: 2em;
     margin-right: 0.3em;
-    color: grey;
+    color: rgb(167, 163, 163);
 }
 
 .form-container form input {
@@ -242,6 +251,11 @@ main {
 .form-container form input:focus {
     outline: none;
     border-bottom: 2px solid black;
+}
+
+.form-container form input:hover {
+    border-bottom: 2px solid black;
+    transition: 0.2s ease;
 }
 
 .form-container form textarea {
@@ -259,13 +273,18 @@ main {
     border-bottom: 2px solid black;
 }
 
+.form-container form textarea:hover {
+    border-bottom: 2px solid black;
+    transition: 0.2s ease;
+}
+
 .form-container form .checkbox {
     width: 1.3em;
 }
 
 .form-container form button {
     color: white;
-    background-color: #2e5a77;
+    background-color: rgba(82, 109, 141, 0.959);
     border-radius: 3em;
     padding: 0.7em 1em;
     border: none;
@@ -322,7 +341,7 @@ main {
 }
 
 footer {
-    background-color: #e7e7e7;
+    background-color: rgba(218, 218, 218, 0.479);
     height: auto;
     display: flex;
     align-items: center;
@@ -405,7 +424,7 @@ footer {
 }
 
 .footer-container .col .social-networks a{
-    background-color: rgb(85, 85, 196);
+    background-color: rgb(51, 125, 185);
     border-radius: 5em;
     color: white;
     padding: 0.2em;
