@@ -18,9 +18,9 @@
         <button @click="handleDelete(dog.id)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md mt-2">
           Borrar
         </button>
-        <!--<button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-2 ml-2">
+        <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-2 ml-2">
           <router-link :to="`/edit/${dog.id}`">Editar</router-link>
-        </button>-->
+        </button>
       </div>
     </div>
 

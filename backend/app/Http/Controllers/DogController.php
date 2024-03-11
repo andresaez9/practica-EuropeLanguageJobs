@@ -76,31 +76,37 @@ class DogController extends Controller
         }
     }
 
-    /*public function update(Request $request, $id)
+    public function update(Request $request, $id)
     {
         try {
             $request->validate([
-                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-                'breed' => 'required',
-                'size' => 'required',
-                'color' => 'required',
+                'image' => 'required|string',
+                'breed' => 'required|alpha',
+                'size' => 'required|alpha',
+                'color' => 'required|alpha',
             ]);
 
             $dog = Dog::findOrFail($id);
-
-            if (!$dog) {
-                return response()->json(['message' => 'Dog not found!'], 404);
-            }
 
             $dog->breed = $request->input('breed');
             $dog->size = $request->input('size');
             $dog->color = $request->input('color');
 
-            if ($request->hasFile('image')) {
-                Storage::delete('public/' . $dog->image);
-                $imgPath = $request->file('image')->store('public/images');
-                $dog->image = str_replace('public/', '', $imgPath); // remove 'public/' from the path
-            }
+            if ($request->has('image')) {
+                if ($dog->image) {
+                    Storage::delete('public/' . $dog->image);
+                }
+
+                $imageData = $request->input('image');
+                $decodedImage = base64_decode($imageData);
+            
+                // Generar un nombre único para la imagen
+                $imageName = 'image_' . time() . '.png';
+                Storage::put('public/images/' . $imageName, $decodedImage);
+            
+                // Actualizar la ruta de la imagen en la base de datos
+                $dog->image = 'images/' . $imageName;
+            }            
 
             $dog->save();
 
@@ -112,6 +118,7 @@ class DogController extends Controller
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
+
 
     public function show($id)
     {
@@ -126,5 +133,5 @@ class DogController extends Controller
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
-    }*/
+    }
 }

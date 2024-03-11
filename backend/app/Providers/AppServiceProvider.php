@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Validator::extend('alpha_only', function ($attribute, $value, $parameters, $validator) {
-            return preg_match('/^[a-zA-Z]+$/', $value);
+            return preg_match('/^[a-zA-Z\s]+$/', $value);
         });
     
         Validator::replacer('alpha_only', function ($message, $attribute, $rule, $parameters) {

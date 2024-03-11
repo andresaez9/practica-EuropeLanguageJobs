@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 
 const url = 'http://127.0.0.1:8000/api/dogs';
-const onlyLetters = /^[a-zA-Z]+$/;
+const onlyLetters = /^[a-zA-Z\s]+$/;
 
 export const useDogStore = defineStore('dogStore', {
     state: () => ({
@@ -72,7 +72,7 @@ export const useDogStore = defineStore('dogStore', {
           }
         },
 
-        async deleteDog (dogId) {
+        async deleteDog(dogId) {
           try {
             const response = await fetch(`${url}/${dogId}`, {
               method: 'DELETE'
@@ -86,25 +86,33 @@ export const useDogStore = defineStore('dogStore', {
           }
         },
 
-        /*async updateDog(dogId) {
+        async updateDog(dogId) {
           try {
-              const formData = new FormData();
-              formData.append('breed', this.dogsDetails.breed);
-              formData.append('size', this.dogsDetails.size);
-              formData.append('color', this.dogsDetails.color);
-              formData.append('image', this.dogsDetails.image);
+              const base64Image = await this.convertImageToBase64(this.dogsDetails.image);
+              
+              const requestData = {
+                  breed: this.dogsDetails.breed,
+                  size: this.dogsDetails.size,
+                  color: this.dogsDetails.color,
+                  image: base64Image
+              };
+
+              console.log('Datos a enviar:', requestData);
       
               const updateResponse = await fetch(`${url}/${dogId}`, {
                   method: 'PUT',
-                  body: formData
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify(requestData)
               });
       
               if (!updateResponse.ok) {
-                this.errorMessage = 'Error al actualizar la foto o detalles del perro, inténtelo de nuevo.';
-                this.checkMessage = '';
-                return;
+                  this.errorMessage = 'Error al actualizar la foto o detalles del perro, inténtelo de nuevo.';
+                  this.checkMessage = '';
+                  return;
               }
-              
+      
               const data = await updateResponse.json();
               this.checkMessage = 'Foto y detalles del perro actualizados correctamente';
               this.errorMessage = '';
@@ -115,37 +123,46 @@ export const useDogStore = defineStore('dogStore', {
           } catch (error) {
               throw new Error('Error al actualizar el perro: ' + error);
           }
-        },
+      },
+      
+      async convertImageToBase64(imageFile) {
+          return new Promise((resolve, reject) => {
+              const reader = new FileReader();
+              reader.readAsDataURL(imageFile);
+              reader.onload = () => resolve(reader.result.split(',')[1]);
+              reader.onerror = error => reject(error);
+          });
+      },      
 
-        async getDogDetails(dogId) {
-          try {
-            const response = await fetch(`${url}/${dogId}`);
-            if (!response.ok) {
-              throw new Error('No se pudo obtener los detalles del perro: ' + response.statusText);
-            }
-    
-            const dogData = await response.json();
-
-            this.dogsDetails.image = dogData.image;
-            this.dogsDetails.breed = dogData.breed;
-            this.dogsDetails.size = dogData.size;
-            this.dogsDetails.color = dogData.color;
-            console.log('Detalles del perro:', this.dogsDetails);
-          } catch (error) {
-            throw new Error('Error al obtener los detalles del perro:', error);
+      async getDogDetails(dogId) {
+        try {
+          const response = await fetch(`${url}/${dogId}`);
+          if (!response.ok) {
+            throw new Error('No se pudo obtener los detalles del perro: ' + response.statusText);
           }
-        },*/
-    
-        clearMessages() {
-          this.errorMessage = '';
-          this.checkMessage = '';
-        },
+  
+          const dogData = await response.json();
 
-        clearForm() {
-          this.dogsDetails.breed = '';
-          this.dogsDetails.size = '';
-          this.dogsDetails.color = '';
-          this.dogsDetails.image = null;
+          this.dogsDetails.image = dogData.image;
+          this.dogsDetails.breed = dogData.breed;
+          this.dogsDetails.size = dogData.size;
+          this.dogsDetails.color = dogData.color;
+          console.log('Detalles del perro:', this.dogsDetails);
+        } catch (error) {
+          throw new Error('Error al obtener los detalles del perro:', error);
         }
+      },
+  
+      clearMessages() {
+        this.errorMessage = '';
+        this.checkMessage = '';
+      },
+
+      clearForm() {
+        this.dogsDetails.breed = '';
+        this.dogsDetails.size = '';
+        this.dogsDetails.color = '';
+        this.dogsDetails.image = null;
+      }
     }
 });

@@ -4,20 +4,20 @@
   import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
   const dogStore = useDogStore();
-  //const route = useRoute();
+  const route = useRoute();
 
-  /*onMounted(() => {
+  onMounted(() => {
     if (route.params.id) {
       dogStore.getDogDetails(route.params.id);
     }
-  });*/
+  });
 
   const handleSubmitForm = () => {
-    /*if (route.params.id) {
+    if (route.params.id) {
       dogStore.updateDog(route.params.id);
-    } else {*/
+    } else {
       dogStore.submitForm();
-    //}
+    }
   }
 
   onBeforeRouteLeave((to, from, next) => {
@@ -31,9 +31,8 @@
   <div class="container mx-auto py-8">
     <h2 class="text-3xl font-semibold mb-8 text-center text-gray-800">Subir Foto y Detalles del Perro</h2>
 
-    <input type="file" @change="dogStore.handleFileUpload" class="mb-8 block mx-auto">
-
-    <form @submit.prevent="handleSubmitForm()" class="max-w-xl mx-auto">
+    <form @submit.prevent="handleSubmitForm()" class="max-w-xl mx-auto" enctype="multipart/form-data">
+      <input type="file" @change="dogStore.handleFileUpload" class="mb-8 block mx-auto">
       <div class="mb-6">
         <label for="breed" class="block text-lg font-medium text-gray-700">Raza:</label>
         <input v-model="dogStore.dogsDetails.breed" type="text" id="breed" class="mt-1 p-4 border border-gray-300 rounded-md w-full text-lg">
