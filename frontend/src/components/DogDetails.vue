@@ -33,7 +33,6 @@
       </button>
     </div>
 
-    <!-- Modal de confirmación -->
     <div v-if="showDeleteModal" class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-700 bg-opacity-50">
       <div class="bg-white p-8 rounded-lg shadow-lg">
         <p class="text-lg font-semibold mb-4">¿Estás seguro de que quieres borrar este perro?</p>
