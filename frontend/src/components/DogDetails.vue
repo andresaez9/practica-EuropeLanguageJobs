@@ -15,7 +15,7 @@
         <h3 class="text-xl font-semibold">{{ dog.breed }}</h3>
         <p class="text-gray-700 mt-2"><span class="font-semibold">Tamaño:</span> {{ dog.size }}</p>
         <p class="text-gray-700"><span class="font-semibold">Color:</span> {{ dog.color }}</p>
-        <button @click="handleDelete(dog.id)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md mt-2">
+        <button @click="openDeleteModal(dog.id)" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md mt-2">
           Borrar
         </button>
         <button class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md mt-2 ml-2">
@@ -32,6 +32,17 @@
         Siguiente
       </button>
     </div>
+
+    <!-- Modal de confirmación -->
+    <div v-if="showDeleteModal" class="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-700 bg-opacity-50">
+      <div class="bg-white p-8 rounded-lg shadow-lg">
+        <p class="text-lg font-semibold mb-4">¿Estás seguro de que quieres borrar este perro?</p>
+        <div class="flex justify-center">
+          <button @click="deleteDogConfirmed" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md mr-4">Sí, borrar</button>
+          <button @click="cancelDelete" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-md">Cancelar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -43,6 +54,8 @@
   const currentPage = ref(1);
   const dogsPerPage = 4;
   const dogStore = useDogStore();
+  const showDeleteModal = ref(false);
+  const dogIdToDelete = ref(null);
 
   onMounted(async () => {
     try {
@@ -59,9 +72,26 @@
   });
 
   const handleDelete = async (id) => {
-    dogStore.deleteDog(id);            
+    dogStore.deleteDog(id);
     dogs.value = dogs.value.filter(dog => dog.id !== id);
   }
+
+  const openDeleteModal = (id) => {
+    dogIdToDelete.value = id;
+    showDeleteModal.value = true;
+  };
+
+  const cancelDelete = () => {
+    showDeleteModal.value = false;
+  };
+
+  const deleteDogConfirmed = () => {
+    if (dogIdToDelete.value) {
+      handleDelete(dogIdToDelete.value);
+      dogIdToDelete.value = null;
+      showDeleteModal.value = false;
+    }
+  };
 
   const displayedDogs = computed(() => {
     const startIndex = (currentPage.value - 1) * dogsPerPage;

@@ -89,6 +89,10 @@ export const useDogStore = defineStore('dogStore', {
         async updateDog(dogId) {
           try {
               const base64Image = await this.convertImageToBase64(this.dogsDetails.image);
+
+              if (!base64Image) {
+                throw new Error('No se ha seleccionado ninguna imagen');
+              }
               
               const requestData = {
                   breed: this.dogsDetails.breed,
@@ -108,9 +112,7 @@ export const useDogStore = defineStore('dogStore', {
               });
       
               if (!updateResponse.ok) {
-                  this.errorMessage = 'Error al actualizar la foto o detalles del perro, inténtelo de nuevo.';
-                  this.checkMessage = '';
-                  return;
+                throw new Error('Error al actualizar la foto o detalles del perro, inténtelo de nuevo.');
               }
       
               const data = await updateResponse.json();
@@ -121,17 +123,31 @@ export const useDogStore = defineStore('dogStore', {
       
               console.log('Respuesta del backend:', data);
           } catch (error) {
-              throw new Error('Error al actualizar el perro: ' + error);
+              console.error('Error al actualizar el perro:', error);
+              this.errorMessage = error.message;
+              this.checkMessage = '';
           }
       },
       
       async convertImageToBase64(imageFile) {
-          return new Promise((resolve, reject) => {
-              const reader = new FileReader();
-              reader.readAsDataURL(imageFile);
-              reader.onload = () => resolve(reader.result.split(',')[1]);
-              reader.onerror = error => reject(error);
-          });
+        if (!imageFile) {
+          this.errorMessage = 'No se ha seleccionado ninguna imagen';
+          this.checkMessage = '';
+          return null;
+        }
+  
+        if (!(imageFile instanceof Blob)) {
+          this.errorMessage = 'El archivo seleccionado no es válido';
+          this.checkMessage = '';
+          return null;
+        }
+  
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(imageFile);
+          reader.onload = () => resolve(reader.result.split(',')[1]);
+          reader.onerror = error => reject(error);
+        });
       },      
 
       async getDogDetails(dogId) {
